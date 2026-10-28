@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mayada & Saad | دعوة زفاف ميادة و سعد</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  
+  <!-- Google Fonts for Exact Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+  <style>
+    :root {
+      --cream-bg: #F5F2EB;
+      --cream-card: #fbf9f4;
+      --cream-deep: #e9e1d4;
+      --ink-main: #4A433B;
+      --ink-light: #7A7167;
+      --ink-dark: #332d27;
+      --royal-blue: #1B2D4F;
+      --warm-gold: #C5A880;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1c1917;
+      font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* English Script Typography */
+    .font-script {
+      font-family: 'Great Vibes', 'Alex Brush', cursive;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* Arabic Calligraphic Typography */
+    .font-arabic-royal {
+      font-family: 'Amiri', 'Scheherazade New', serif;
+    }
+
+    /* Countdown Serif Typography */
+    .font-serif-num {
+      font-family: 'Cormorant Garamond', 'Amiri', serif;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Main Mobile Container mimicking Canva / Wedia mobile site */
+    .invitation-viewport {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      min-height: 100vh;
+      background-color: var(--cream-bg);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+    }
+
+    /* Subtle Paper Grain Overlay */
+    .paper-texture {
+      background-image: radial-gradient(rgba(106, 97, 88, 0.045) 1px, transparent 0),
+                        radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 0);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+    }
+
+    /* Screen 1 -> Screen 2 Transitions */
+    .screen-cover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 30;
+      transition: opacity 0.95s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.95s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 0.95s;
+    }
+
+    .screen-cover.opened {
+      opacity: 0;
+      transform: scale(1.06);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .screen-inside {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 1s ease 0.25s, transform 1s ease 0.25s;
+    }
+
+    .screen-inside.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Closed Envelope Hover & Click Animation */
+    .closed-envelope-wrapper {
+      cursor: pointer;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+      perspective: 1200px;
+    }
+
+    .closed-envelope-wrapper:hover {
+      transform: translateY(-4px) scale(1.015);
+    }
+
+    .closed-envelope-wrapper:active {
+      transform: scale(0.985);
+    }
+
+    /* Flap 3D Opening Animation when clicked */
+    .flap-3d {
+      transform-origin: 50% 0%;
+      transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .closed-envelope-wrapper.opening .flap-3d {
+      transform: rotateX(165deg);
+    }
+
+    /* Breathing Prompt Text */
+    @keyframes softPulse {
+      0%, 100% { opacity: 0.88; transform: translateY(0); }
+      50% { opacity: 0.55; transform: translateY(-2px); }
+    }
+
+    .animate-prompt {
+      animation: softPulse 2.8s ease-in-out infinite;
+    }
+
+    /* Vinyl Record Spin Animation */
+    @keyframes spinRecord {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .vinyl-disc {
+      animation: spinRecord 7s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .vinyl-disc.playing {
+      animation-play-state: running;
+    }
+
+    /* Blurred Poetic Effect matching Screenshot 2 when Play Overlay is prominent */
+    .poem-blur-transition {
+      transition: filter 0.5s ease, opacity 0.5s ease;
+    }
+
+    .poem-soft-focus {
+      filter: blur(0.65px);
+    }
+
+    /* Play Overlay Button Pulse */
+    .play-overlay-btn {
+      background: rgba(98, 92, 85, 0.68);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .play-overlay-btn:hover {
+      background: rgba(82, 76, 70, 0.82);
+      transform: scale(1.06);
+    }
+
+    .play-overlay-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e5dfd3;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #b5aba0;
+      border-radius: 4px;
+    }
+
+    body {
+      background: #F5F2EB;
+      color: var(--ink-main);
+    }
+
+    body > div[style*="radial-gradient"] {
+      background: radial-gradient(circle at 50% 30%, #fffdf8 0%, #eee8dc 100%) !important;
+      opacity: 1 !important;
+    }
+
+    .invitation-viewport {
+      max-width: 520px;
+      background-color: var(--cream-bg);
+      box-shadow: 0 18px 60px rgba(27, 45, 79, 0.16);
+    }
+
+    .paper-texture {
+      background-color: var(--cream-bg);
+      background-image:
+        radial-gradient(rgba(197, 168, 128, 0.09) 0.8px, transparent 0),
+        radial-gradient(rgba(255, 255, 255, 0.62) 0.8px, transparent 0);
+    }
+
+    #screenCover > div.absolute.inset-0.z-0 {
+      background: linear-gradient(180deg, rgba(27, 45, 79, 0.24), rgba(27, 45, 79, 0.05) 48%, rgba(27, 45, 79, 0.36)) !important;
+    }
+
+    #coverNamesEn,
+    #insideNamesEn {
+      color: #f2dfbd;
+      text-shadow: 0 2px 12px rgba(14, 25, 46, 0.75), 0 0 22px rgba(197, 168, 128, 0.38) !important;
+    }
+
+    #screenInside {
+      background-color: var(--cream-bg) !important;
+      color: var(--ink-main);
+    }
+
+    #screenInside > div:first-child {
+      border-bottom: 2px solid var(--warm-gold);
+      box-shadow: 0 8px 22px rgba(27, 45, 79, 0.12);
+    }
+
+    #screenInside > div:first-child::after {
+      position: absolute;
+      inset: auto 12% 10px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.9), transparent);
+      content: "";
+      pointer-events: none;
+    }
+
+    #screenInside > div:first-child > div.absolute.inset-0.bg-gradient-to-b {
+      background-image: linear-gradient(to bottom, rgba(27, 45, 79, 0.48), transparent 58%, rgba(27, 45, 79, 0.32)) !important;
+    }
+
+    #poemContainer {
+      color: var(--ink-light);
+      font-size: 17px;
+      line-height: 2;
+    }
+
+    #poemContainer p + p {
+      margin-top: 0.15rem;
+    }
+
+    #mainZaffaTitle {
+      color: var(--royal-blue);
+      font-size: 29px;
+      text-shadow: 0 1px 0 rgba(197, 168, 128, 0.42);
+    }
+
+    #subDayLine,
+    #envDateAr,
+    #iconRightLabelGreg {
+      color: var(--ink-light);
+    }
+
+    #envNamesAr {
+      color: var(--royal-blue);
+    }
+
+    #screenInside .group > div,
+    #screenInside .group > span,
+    #venueNameText {
+      color: var(--royal-blue);
+    }
+
+    #screenInside .group:hover #venueNameText {
+      border-color: var(--warm-gold);
+    }
+
+    #screenInside .font-serif-num {
+      color: var(--royal-blue);
+    }
+
+    #screenInside .font-serif-num > span {
+      color: var(--warm-gold);
+    }
+
+    #screenInside .font-serif-num div span:last-child {
+      color: var(--ink-light);
+    }
+
+    #locationModal > div {
+      background: #fbf9f4;
+      color: var(--ink-main);
+      border-color: var(--warm-gold);
+    }
+
+    @media (min-width: 640px) {
+      .invitation-viewport {
+        border-inline: 1px solid rgba(197, 168, 128, 0.55);
+      }
+
+      #screenInside > div:first-child {
+        height: 290px;
+      }
+
+      #poemContainer {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #poemContainer {
+        font-size: 15px;
+      }
+
+      #mainZaffaTitle {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Desktop Ambient Backdrop -->
+  <div class="fixed inset-0 pointer-events-none hidden md:block z-0"
+       style="background: radial-gradient(circle at 50% 30%, #fffdf8 0%, #eee8dc 100%);">
+  </div>
+
+  <!-- MAIN MOBILE INVITATION CONTAINER -->
+  <main class="invitation-viewport paper-texture z-10">
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: CLOSED ENVELOPE SCREEN (EXACT REPLICA OF SCREENSHOT 1)      -->
+    <!-- =================================================================== -->
+    <section id="screenCover" class="screen-cover flex flex-col items-center justify-between py-10 px-5">
+      
+      <!-- Generated Vintage Sepia Bridal Lace Dress & Heel Background Canvas -->
+      <canvas id="bridalCoverCanvas" class="hidden"></canvas>
+      
+      <!-- Optional user custom cover image layer -->
+      <img id="customCoverImg" alt="" src="Saad/mmr.jfif" decoding="async" class="absolute inset-0 w-full h-full object-cover z-0" style="object-position:center center;" />
+
+      <!-- Soft dreamy vintage vignette & grain overlay -->
+      <div class="absolute inset-0 z-0 pointer-events-none"
+           style="background: linear-gradient(180deg, rgba(58,49,42,0.32) 0%, rgba(80,68,58,0.12) 45%, rgba(50,41,35,0.38) 100%);">
+      </div>
+
+      <!-- Top Spacer -->
+      <div class="relative z-10 h-12"></div>
+
+      <!-- Centerpiece: Names + Closed Ornate Embossed Envelope + Prompt -->
+      <div class="relative z-10 w-full flex flex-col items-center my-auto">
+        
+        <!-- English Script Names Above Envelope -->
+        <h1 id="coverNamesEn"
+             dir="ltr"
+            class="font-script text-white text-[36px] sm:text-[40px] leading-none mb-2 tracking-wide select-none text-center"
+            style="text-shadow: 0 2px 12px rgba(45, 36, 28, 0.45), 0 0 25px rgba(255, 250, 242, 0.25);">
+          Mayada &amp; Saad
+        </h1>
+
+        <!-- Closed Embossed Royal Envelope (Click to Open) -->
+        <div id="closedEnvelopeBtn"
+             onclick="openInvitation()"
+             role="button"
+             aria-label="اضغط على الظرف لفتح الدعوة"
+             class="closed-envelope-wrapper relative w-[84%] max-w-[330px] aspect-[1.46/1] my-1">
+          
+          <!-- Complete High-Precision 3D Embossed SVG Envelope matching Screenshot 1 -->
+          <svg viewBox="0 0 520 356" class="w-full h-full overflow-visible drop-shadow-[0_18px_28px_rgba(32,24,18,0.42)]">
+            <defs>
+              <!-- Warm Ivory Cardstock Gradient -->
+              <linearGradient id="envBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ece8dc" />
+                <stop offset="55%" stop-color="#e3decF" />
+                <stop offset="100%" stop-color="#d5cebe" />
+              </linearGradient>
+
+              <linearGradient id="envBottomFoldGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#dad3c3" />
+                <stop offset="65%" stop-color="#e5e0d2" />
+                <stop offset="100%" stop-color="#ece7da" />
+              </linearGradient>
+
+              <linearGradient id="envFlapGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+                <stop offset="0%" stop-color="#f2eee4" />
+                <stop offset="45%" stop-color="#e8e3d5" />
+                <stop offset="100%" stop-color="#dcd5c5" />
+              </linearGradient>
+
+              <!-- Flap Shadow onto Envelope Body -->
+              <filter id="flapDropShadow" x="-15%" y="-10%" width="130%" height="135%">
+                <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#2d241c" flood-opacity="0.32" />
+                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#3a2f25" flood-opacity="0.22" />
+              </filter>
+
+              <!-- 3D Bas-Relief Emboss Filter for the Baroque Filigree -->
+              <filter id="embossRelief" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="-1.2" dy="-1.4" stdDeviation="0.7" flood-color="#ffffff" flood-opacity="0.92" result="highlight" />
+                <feDropShadow dx="1.4" dy="1.8" stdDeviation="1.1" flood-color="#9c9283" flood-opacity="0.58" result="shadow" />
+              </filter>
+
+              <!-- Fine Paper Noise Pattern -->
+              <filter id="paperGrainFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.035 0" />
+                <feComposite in2="SourceGraphic" operator="in" />
+              </filter>
+            </defs>
+
+            <!-- Base Rectangular Envelope Body -->
+            <rect x="4" y="4" width="512" height="348" rx="4" fill="url(#envBodyGrad)" stroke="#d2cbbB" stroke-width="1" />
+
+            <!-- Left & Right Pocket Fold Lines -->
+            <path d="M 4,4 L 260,210 L 4,352 Z" fill="#e2ddcf" opacity="0.65" />
+            <path d="M 516,4 L 260,210 L 516,352 Z" fill="#dbd4c5" opacity="0.65" />
+            
+            <!-- Diagonal Crease Grooves (Bottom Flap Overlapping Side Flaps) -->
+            <path d="M 4,352 L 260,148 L 516,352 Z" fill="url(#envBottomFoldGrad)" stroke="#cfc8b8" stroke-width="1.2" />
+            <line x1="4" y1="350" x2="210" y2="185" stroke="#ffffff" stroke-width="0.9" opacity="0.55" />
+            <line x1="516" y1="350" x2="310" y2="185" stroke="#beb6a6" stroke-width="1" opacity="0.55" />
+
+            <!-- TOP SCALLOPED BAROQUE EMBOSSED FLAP (Pointing Downward) -->
+            <g class="flap-3d" filter="url(#flapDropShadow)">
+              <!-- Scalloped Royal Flap Silhouette matching Screenshot 1 -->
+              <path d="M 4,4 
+                       L 516,4 
+                       C 516,28 504,52 482,66
+                       C 468,75 462,92 444,102
+                       C 424,113 415,132 394,142
+                       C 372,152 362,172 340,183
+                       C 316,195 306,216 286,232
+                       C 272,244 266,252 260,252
+                       C 254,252 248,244 234,232
+                       C 214,216 204,195 180,183
+                       C 158,172 148,152 126,142
+                       C 105,132 96,113 76,102
+                       C 58,92 52,75 38,66
+                       C 16,52 4,28 4,4 Z"
+                    fill="url(#envFlapGrad)"
+                    stroke="#f7f4ec"
+                    stroke-width="1.2" />
+
+              <!-- Inner Scalloped Rim Line -->
+              <path d="M 18,10 
+                       C 18,30 28,48 47,60
+                       C 62,69 68,85 85,95
+                       C 104,105 113,123 134,133
+                       C 155,143 165,162 186,173
+                       C 209,185 219,204 238,220
+                       C 250,230 255,237 260,237
+                       C 265,237 270,230 282,220
+                       C 301,204 311,185 334,173
+                       C 355,162 365,143 386,133
+                       C 407,123 416,105 435,95
+                       C 452,85 458,69 473,60
+                       C 492,48 502,30 502,10"
+                    fill="none"
+                    stroke="#dcd5c6"
+                    stroke-width="1.1"
+                    filter="url(#embossRelief)" />
+
+              <!-- HIGH-RELIEF 3D EMBOSSED BAROQUE FLORAL SCROLLWORK (Symmetrical) -->
+              <g filter="url(#embossRelief)" fill="none" stroke="#ece7db" stroke-linecap="round" stroke-linejoin="round">
+                
+                <!-- Central Royal Crest / Fleur-de-lis Spire -->
+                <path d="M 260,228 L 260,46" stroke-width="3.2" />
+                <path d="M 260,42 C 252,58 242,70 248,84 C 253,94 260,92 260,104 C 260,92 267,94 272,84 C 278,70 268,58 260,42 Z" fill="#eae5d9" stroke-width="2.2" />
+                <path d="M 260,72 C 240,68 228,82 234,98 C 239,110 252,110 260,122" stroke-width="3" />
+                <path d="M 260,72 C 280,68 292,82 286,98 C 281,110 268,110 260,122" stroke-width="3" />
+
+                <!-- Central Lower Heart Medallion at Flap Tip -->
+                <path d="M 260,226 C 244,212 236,192 245,178 C 252,167 260,175 260,186 C 260,175 268,167 275,178 C 284,192 276,212 260,226 Z" fill="#eae5d9" stroke-width="2.6" />
+                <circle cx="260" cy="202" r="5" fill="#ece7db" stroke-width="1.5" />
+
+                <!-- Left Grand Baroque Acanthus S-Scrolls -->
+                <path d="M 256,158 C 235,142 212,140 198,154 C 186,166 196,184 212,180 C 224,177 224,162 212,158" stroke-width="3.4" />
+                <path d="M 244,132 C 218,112 184,114 172,135 C 162,152 178,168 192,160" stroke-width="2.8" />
+                <path d="M 196,125 C 175,105 145,104 134,122 C 124,138 142,152 156,142 C 166,135 162,122 150,120" stroke-width="3.2" />
+                <path d="M 148,108 C 128,88 98,86 88,102 C 79,115 94,128 108,120" stroke-width="2.8" />
+                <path d="M 102,88 C 84,68 58,64 48,78 C 40,89 54,100 66,92" stroke-width="2.6" />
+                <path d="M 64,58 C 48,42 32,32 26,18" stroke-width="2.5" />
+
+                <!-- Left Delicate Filigree Leaves & Pearls -->
+                <path d="M 225,142 C 220,125 205,118 192,122" stroke-width="2.2" />
+                <path d="M 172,115 C 168,98 152,92 138,96" stroke-width="2.2" />
+                <path d="M 122,92 C 118,76 104,70 90,74" stroke-width="2" />
+                <circle cx="234" cy="196" r="3.5" fill="#ece7db" />
+                <circle cx="182" cy="166" r="3.5" fill="#ece7db" />
+                <circle cx="128" cy="134" r="3.2" fill="#ece7db" />
+                <circle cx="78" cy="98" r="3" fill="#ece7db" />
+                <circle cx="42" cy="60" r="2.8" fill="#ece7db" />
+
+                <!-- Right Grand Baroque Acanthus S-Scrolls (Mirrored) -->
+                <path d="M 264,158 C 285,142 308,140 322,154 C 334,166 324,184 308,180 C 296,177 296,162 308,158" stroke-width="3.4" />
+                <path d="M 276,132 C 302,112 336,114 348,135 C 358,152 342,168 328,160" stroke-width="2.8" />
+                <path d="M 324,125 C 345,105 375,104 386,122 C 396,138 378,152 364,142 C 354,135 358,122 370,120" stroke-width="3.2" />
+                <path d="M 372,108 C 392,88 422,86 432,102 C 441,115 426,128 412,120" stroke-width="2.8" />
+                <path d="M 418,88 C 436,68 462,64 472,78 C 480,89 466,100 454,92" stroke-width="2.6" />
+                <path d="M 456,58 C 472,42 488,32 494,18" stroke-width="2.5" />
+
+                <!-- Right Delicate Filigree Leaves & Pearls -->
+                <path d="M 295,142 C 300,125 315,118 328,122" stroke-width="2.2" />
+                <path d="M 348,115 C 352,98 368,92 382,96" stroke-width="2.2" />
+                <path d="M 398,92 C 402,76 416,70 430,74" stroke-width="2" />
+                <circle cx="286" cy="196" r="3.5" fill="#ece7db" />
+                <circle cx="338" cy="166" r="3.5" fill="#ece7db" />
+                <circle cx="392" cy="134" r="3.2" fill="#ece7db" />
+                <circle cx="442" cy="98" r="3" fill="#ece7db" />
+                <circle cx="478" cy="60" r="2.8" fill="#ece7db" />
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Call to Action Text Below Envelope -->
+        <p onclick="openInvitation()"
+           class="animate-prompt cursor-pointer font-arabic-royal text-white/90 text-[15px] sm:text-[16px] mt-4 tracking-wide text-center"
+           style="text-shadow: 0 2px 8px rgba(30, 22, 16, 0.65);">
+          ( اضغط على الظرف لفتح الدعوة )
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: OPENED INVITATION & VINYL RECORD (REPLICA OF SCREENSHOT 2)  -->
+    <!-- =================================================================== -->
+    <section id="screenInside" class="screen-inside flex flex-col w-full bg-[#e6e0d4] paper-texture">
+
+      <!-- 1. TOP CRYSTAL CHANDELIERS MONOCHROME BANNER -->
+      <div class="relative w-full h-[255px] overflow-hidden bg-[#2b2927]">
+        <!-- Procedural High-Realism Crystal Chandeliers Canvas -->
+        <canvas id="chandelierCanvas" class="w-full h-full object-cover"></canvas>
+        <!-- Optional Custom Top Banner Image -->
+        <img id="customTopImg" alt="" src="Saad/waa2.jfif" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
+
+        <!-- Subtle top vignette for script legibility -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/20 pointer-events-none"></div>
+
+        <!-- English Script Names at Very Top -->
+        <div class="absolute top-4 inset-x-0 text-center z-10 pointer-events-none">
+          <h2 id="insideNamesEn"
+              dir="ltr"
+              class="font-script text-white/95 text-[35px] sm:text-[38px] leading-tight"
+              style="text-shadow: 0 2px 12px rgba(0,0,0,0.65);">
+            Mayada &amp; Saad
+          </h2>
+        </div>
+
+        <!-- Subtle Back Button (Return to Closed Envelope) -->
+        <button onclick="closeInvitation()"
+                title="إغلاق الظرف"
+                class="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/25 hover:bg-black/45 text-white/80 flex items-center justify-center backdrop-blur-sm transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- 2. OPEN EMBOSSED ENVELOPE WITH SPINNING VINYL RECORD (OVERLAPPING BOUNDARY) -->
+      <div class="relative w-full flex flex-col items-center -mt-[126px] z-20 px-4">
+        
+        <div class="relative w-[225px] sm:w-[238px] flex flex-col items-center">
+          
+          <!-- Complete Open Envelope + Vinyl Record Assembly -->
+          <div class="relative w-full aspect-[1/1.05] flex items-center justify-center">
+            
+            <!-- A. Open Upward Embossed Baroque Flap (Behind Vinyl Record) -->
+            <svg viewBox="0 0 520 480" class="w-full h-full overflow-visible drop-shadow-[0_14px_22px_rgba(35,28,22,0.22)]">
+              <defs>
+                <linearGradient id="openFlapGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+                  <stop offset="0%" stop-color="#f3efe6" />
+                  <stop offset="60%" stop-color="#e7e1d3" />
+                  <stop offset="100%" stop-color="#d8d1c1" />
+                </linearGradient>
+
+                <linearGradient id="pocketInsideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#cfc7b6" />
+                  <stop offset="100%" stop-color="#b8b09f" />
+                </linearGradient>
+              </defs>
+
+              <!-- UPWARD OPEN BAROQUE SCALLOPED FLAP -->
+              <g filter="url(#flapDropShadow)">
+                <path d="M 10,230 
+                         L 510,230 
+                         C 510,192 496,162 474,144
+                         C 458,131 450,112 432,98
+                         C 412,84 402,64 380,52
+                         C 358,40 348,22 326,10
+                         C 304,-2 292,-16 276,-28
+                         C 266,-36 263,-40 260,-40
+                         C 257,-40 254,-36 244,-28
+                         C 228,-16 216,-2 194,10
+                         C 172,22 162,40 140,52
+                         C 118,64 108,84 88,98
+                         C 70,112 62,131 46,144
+                         C 24,162 10,192 10,230 Z"
+                      fill="url(#openFlapGrad)"
+                      stroke="#f6f3eb"
+                      stroke-width="1.2" />
+
+                <!-- Embossed Baroque Scrollwork on the Open Upward Flap -->
+                <g filter="url(#embossRelief)" fill="none" stroke="#ebe6da" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Top Royal Finial -->
+                  <path d="M 260,-22 L 260,85" stroke-width="3.2" />
+                  <path d="M 260,-18 C 244,-4 236,16 245,30 C 252,40 260,32 260,22 C 260,32 268,40 275,30 C 284,16 276,-4 260,-18 Z" fill="#eae4d7" stroke-width="2.6" />
+                  <!-- Symmetrical Baroque Curls on Upward Arch -->
+                  <path d="M 254,32 C 232,48 206,50 192,36 C 180,24 190,8 206,12" stroke-width="3.2" />
+                  <path d="M 196,62 C 174,82 144,84 132,66 C 122,50 140,38 154,48" stroke-width="3.2" />
+                  <path d="M 142,96 C 120,116 92,118 80,102 C 70,88 86,76 100,84" stroke-width="2.8" />
+                  <path d="M 92,136 C 72,154 48,158 38,144" stroke-width="2.6" />
+
+                  <path d="M 266,32 C 288,48 314,50 328,36 C 340,24 330,8 314,12" stroke-width="3.2" />
+                  <path d="M 324,62 C 346,82 376,84 388,66 C 398,50 380,38 366,48" stroke-width="3.2" />
+                  <path d="M 378,96 C 400,116 428,118 440,102 C 450,88 434,76 420,84" stroke-width="2.8" />
+                  <path d="M 428,136 C 448,154 472,158 482,144" stroke-width="2.6" />
+                </g>
+              </g>
+
+              <!-- Envelope Back Interior Dark Backing -->
+              <rect x="10" y="226" width="500" height="248" fill="url(#pocketInsideGrad)" />
+            </svg>
+
+            <!-- B. REALISTIC SPINNING BLACK VINYL RECORD (Nestled inside Envelope) -->
+            <div id="vinylRecord"
+                 onclick="toggleAudioPlayback()"
+                 title="الأسطوانة الموسيقية"
+                 class="vinyl-disc playing cursor-pointer absolute top-[17%] w-[69%] aspect-square rounded-full flex items-center justify-center shadow-[0_6px_18px_rgba(0,0,0,0.45)] z-10"
+                 style="background:
+                        conic-gradient(from 35deg,
+                          #141414 0deg,
+                          #2c2c2c 28deg,
+                          #121212 58deg,
+                          #101010 145deg,
+                          #2e2e2e 180deg,
+                          #141414 215deg,
+                          #111111 310deg,
+                          #141414 360deg);">
+              <!-- Concentric Vinyl Micro-Grooves -->
+              <div class="w-[90%] h-[90%] rounded-full border border-white/10 flex items-center justify-center">
+                <div class="w-[82%] h-[82%] rounded-full border border-white/5 flex items-center justify-center">
+                  <div class="w-[72%] h-[72%] rounded-full border border-white/10 flex items-center justify-center">
+                    <div class="w-[60%] h-[60%] rounded-full border border-white/5 flex items-center justify-center">
+                      <!-- Warm Cream Vinyl Center Label matching Screenshot 2 -->
+                      <div class="w-[62%] h-[62%] rounded-full bg-[#e6e0d2] shadow-inner flex items-center justify-center border border-[#cfc8b8]">
+                        <!-- Tiny Center Spindle Dot -->
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#b5ada0] opacity-75"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- C. ENVELOPE FRONT POCKET (Overlapping Lower Half of Vinyl Record) -->
+            <svg viewBox="0 0 520 480" class="absolute inset-0 w-full h-full pointer-events-none z-20 overflow-visible">
+              <defs>
+                <linearGradient id="frontPocketLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ede8dc" />
+                  <stop offset="100%" stop-color="#ded8c8" />
+                </linearGradient>
+                <linearGradient id="frontPocketRight" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e8e2d4" />
+                  <stop offset="100%" stop-color="#d8d1c0" />
+                </linearGradient>
+                <linearGradient id="frontPocketBottom" x1="0%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" stop-color="#dcd5c5" />
+                  <stop offset="40%" stop-color="#e6e0d2" />
+                  <stop offset="100%" stop-color="#eee9de" />
+                </linearGradient>
+              </defs>
+
+              <!-- Left Triangular Side Flap -->
+              <path d="M 10,226 L 205,365 L 10,476 Z" fill="url(#frontPocketLeft)" stroke="#d8d1c1" stroke-width="1" />
+              <!-- Right Triangular Side Flap -->
+              <path d="M 510,226 L 315,365 L 510,476 Z" fill="url(#frontPocketRight)" stroke="#d5cebe" stroke-width="1" />
+
+              <!-- Bottom Trapezoidal Front Fold -->
+              <path d="M 10,476 L 195,332 L 325,332 L 510,476 Z"
+                    fill="url(#frontPocketBottom)"
+                    stroke="#d5cebe"
+                    stroke-width="1.2" />
+
+              <!-- Subtle Bottom Shadow Line -->
+              <line x1="12" y1="476" x2="508" y2="476" stroke="#b5ac9c" stroke-width="2" />
+            </svg>
+
+            <!-- D. Arabic Text Printed on the Lower Front Pocket of the Envelope -->
+            <div class="absolute bottom-[25px] inset-x-0 z-30 flex flex-col items-center text-center pointer-events-none px-4">
+              <p id="envNamesAr" class="font-arabic-royal text-[#726a60] text-[15px] sm:text-[16px] leading-tight tracking-wide">
+                ميادة &amp; سعد
+              </p>
+              <p id="envDateAr" class="font-arabic-royal text-[#857c72] text-[10.5px] sm:text-[11px] mt-0.5 tracking-normal">
+                الثاني والعشرون من شهر نوفمبر لعام 2026م
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. POETIC INVITATION SECTION (CLEAN & UNOBSTRUCTED WITHOUT PLAY BUTTON OVERLAY) -->
+      <div class="relative w-full flex flex-col items-center px-6 pt-5 pb-3 text-center">
+        <div id="poemContainer" class="space-y-1.5 text-[#7e746a] text-[15.5px] sm:text-[16.5px] font-arabic-royal leading-relaxed select-none">
+          <p id="poemLine1">إلى كل من له في نفسي مكانة عزيزة</p>
+          <p id="poemLine2">اليوم أقاسمكم سروري وجميل شعوري</p>
+          <p id="poemLine3">بكل الود والحب أدعوكم لحضور</p>
+        </div>
+      </div>
+
+      <!-- 4. STRETCHED CALLIGRAPHIC HEADING: حفل زفــــــــــــافي -->
+      <div class="w-full text-center px-6 pt-2 pb-1">
+        <h3 id="mainZaffaTitle"
+            class="font-arabic-royal text-[#746b61] text-[25px] sm:text-[27px] font-normal tracking-normal select-none">
+          حفل زفـــــــــــــــــــــافي
+        </h3>
+
+        <p id="subDayLine"
+           class="font-arabic-royal text-[#8d8479] text-[13.5px] sm:text-[14px] mt-3 tracking-wide">
+          وذلك بمشيئة الله تعالـــى يـــوم الأحـــد
+        </p>
+      </div>
+
+      <!-- 5. DATE AND VENUE LOCATION -->
+      <div class="w-full flex items-start justify-center gap-12 sm:gap-14 py-4 px-6">
+        
+        <!-- Right Item in RTL (Appears on Right): Date -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-8 h-8 flex items-center justify-center text-[#7d746a] mb-1 transition-transform group-hover:scale-110">
+            <svg class="w-6 h-6" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="8" width="20" height="18" rx="2" />
+              <line x1="6" y1="13" x2="26" y2="13" />
+              <line x1="11" y1="5" x2="11" y2="10" />
+              <line x1="21" y1="5" x2="21" y2="10" />
+              <circle cx="12" cy="18" r="1" fill="currentColor" />
+              <circle cx="16" cy="18" r="1" fill="currentColor" />
+              <circle cx="20" cy="18" r="1" fill="currentColor" />
+              <circle cx="12" cy="22" r="1" fill="currentColor" />
+              <circle cx="16" cy="22" r="1" fill="currentColor" />
+            </svg>
+          </div>
+          <span id="iconRightLabelHijri" class="font-arabic-royal text-[#7d746a] text-[11.5px] sm:text-[12px] leading-tight">
+            1448/06/12 هـ
+          </span>
+          <span id="iconRightLabelGreg" class="font-arabic-royal text-[#8a8075] text-[11px] sm:text-[11.5px] leading-tight mt-0.5">
+            2026/11/22 م
+          </span>
+        </div>
+
+        <!-- Left Item in RTL (Appears on Left): Venue location -->
+        <div class="flex flex-col items-center text-center group cursor-pointer" onclick="openLocationModal()">
+          <div class="w-8 h-8 flex items-center justify-center text-[#7d746a] mb-1 transition-transform group-hover:scale-110">
+            <svg class="w-6 h-6" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 28s9-8.2 9-16a9 9 0 1 0-18 0c0 7.8 9 16 9 16Z" />
+              <circle cx="16" cy="12" r="3" />
+            </svg>
+          </div>
+          <span id="venueNameText" class="font-arabic-royal text-[#7d746a] text-[12px] sm:text-[12.5px] border-b border-transparent group-hover:border-[#7d746a]">
+            موقع قاعة مذهلة
+          </span>
+        </div>
+
+      </div>
+
+      <!-- 6. COUNTDOWN TIMER -->
+      <div class="w-full pt-2 pb-6 px-4 flex justify-center">
+        <div dir="ltr" class="font-serif-num flex items-center justify-center gap-3 sm:gap-4 text-[#72695f] select-none">
+          <!-- Days -->
+          <div class="flex flex-col items-center">
+            <span id="cdDays" class="text-[27px] sm:text-[30px] font-semibold tracking-wider leading-none">28</span>
+            <span class="text-[7px] uppercase tracking-[0.18em] text-[#968c81] mt-1.5">DAYS</span>
+          </div>
+
+          <span class="text-[22px] text-[#8d8378] -translate-y-2">:</span>
+
+          <!-- Hours -->
+          <div class="flex flex-col items-center">
+            <span id="cdHours" class="text-[27px] sm:text-[30px] font-semibold tracking-wider leading-none">10</span>
+            <span class="text-[7px] uppercase tracking-[0.18em] text-[#968c81] mt-1.5">HOURS</span>
+          </div>
+
+          <span class="text-[22px] text-[#8d8378] -translate-y-2">:</span>
+
+          <!-- Minutes -->
+          <div class="flex flex-col items-center">
+            <span id="cdMinutes" class="text-[27px] sm:text-[30px] font-semibold tracking-wider leading-none">51</span>
+            <span class="text-[7px] uppercase tracking-[0.18em] text-[#968c81] mt-1.5">MINUTES</span>
+          </div>
+
+          <span class="text-[22px] text-[#8d8378] -translate-y-2">:</span>
+
+          <!-- Seconds -->
+          <div class="flex flex-col items-center">
+            <span id="cdSeconds" class="text-[27px] sm:text-[30px] font-semibold tracking-wider leading-none">34</span>
+            <span class="text-[7px] uppercase tracking-[0.18em] text-[#968c81] mt-1.5">SECONDS</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 7. BOTTOM MONOCHROME WHITE ROSE BOUQUET & FLOWING VEIL BANNER -->
+      <div class="relative w-full h-[185px] overflow-hidden bg-[#3a3836] mt-auto">
+        <!-- Procedural High-Realism Monochrome Bridal Bouquet & Veil Drapery Canvas -->
+        <canvas id="bouquetCanvas" class="w-full h-full object-cover"></canvas>
+        <!-- Optional Custom Bottom Banner Image -->
+        <img id="customBottomImg" alt="" src="Saad/gg3.jfif" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VENUE LOCATION MODAL (قاعة مذهلة)                                   -->
+    <!-- =================================================================== -->
+    <div id="locationModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="bg-[#ebe5d8] text-[#5a5148] w-full max-w-sm rounded-2xl p-6 shadow-2xl border border-[#d5cdbd] text-center relative">
+        <button onclick="closeLocationModal()" class="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5a5148]">✕</button>
+        <div class="w-12 h-12 rounded-full bg-[#dcd4c4] mx-auto flex items-center justify-center mb-3 text-[#6a6056]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+        </div>
+        <h4 id="modalVenueTitle" class="font-arabic-royal text-xl font-bold mb-1">قاعة مذهلة</h4>
+        <p id="modalDateSubtitle" class="text-sm text-[#7d7368] mb-4">الأحد، 22 نوفمبر 2026م | 12 جمادى الآخرة 1448هـ</p>
+        <a id="venueMapLink"
+           href="https://maps.app.goo.gl/6J64nDxmeFMMqFgZ7?g_st=iw"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="block w-full py-2.5 px-4 rounded-xl bg-[#6a6056] hover:bg-[#554c43] text-white text-sm font-arabic-royal transition">
+          فتح الموقع في خرائط جوجل
+        </a>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CUSTOMIZATION & PHOTO GENERATOR DRAWER                              -->
+    <!-- =================================================================== -->
+    <div id="studioModal" class="fixed inset-0 z-50 bg-black/65 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
+      <div class="bg-[#efeae0] text-[#4f4740] w-full max-w-md max-h-[88vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl p-5 shadow-2xl border border-[#d6cebe]">
+        
+        <div class="flex items-center justify-between border-b border-[#d8d0c0] pb-3 mb-4">
+          <h3 class="font-arabic-royal text-lg font-bold text-[#4a423b]">استوديو تخصيص الدعوة والصور</h3>
+          <button onclick="toggleStudioModal(false)" class="w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center">✕</button>
+        </div>
+
+        <div class="space-y-4 text-right text-sm">
+          
+          <!-- Names & Date -->
+          <div class="grid grid-cols-1 gap-3">
+            <div>
+              <label class="block text-xs text-[#7a7066] mb-1">الأسماء بالإنجليزية (أعلى الدعوة)</label>
+              <input id="inputNamesEn" type="text" dir="ltr" value="Mayada & Saad"
+                     oninput="applyCustomizations()"
+                     class="w-full px-3 py-2 rounded-lg bg-white/80 border border-[#cfc6b6] text-left font-serif text-sm focus:outline-none focus:border-[#7a7066]" />
+            </div>
+            <div>
+              <label class="block text-xs text-[#7a7066] mb-1">الأسماء بالعربية (على الظرف)</label>
+              <input id="inputNamesAr" type="text" value="ميادة & سعد"
+                     oninput="applyCustomizations()"
+                     class="w-full px-3 py-2 rounded-lg bg-white/80 border border-[#cfc6b6] text-sm focus:outline-none focus:border-[#7a7066]" />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-xs text-[#7a7066] mb-1">نص التاريخ على الظرف</label>
+                <input id="inputDateAr" type="text" value="الثاني والعشرون من شهر نوفمبر لعام 2026م"
+                       oninput="applyCustomizations()"
+                       class="w-full px-3 py-2 rounded-lg bg-white/80 border border-[#cfc6b6] text-xs focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs text-[#7a7066] mb-1">اسم القاعة</label>
+                <input id="inputVenue" type="text" value="قاعة مذهلة"
+                       oninput="applyCustomizations()"
+                       class="w-full px-3 py-2 rounded-lg bg-white/80 border border-[#cfc6b6] text-xs focus:outline-none" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Timer Settings -->
+          <div class="p-3 rounded-xl bg-[#e4ddd0] border border-[#d2c9b8] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#5c5349]">تثبيت العداد على (10 : 14 : 51 : 34)</span>
+              <input id="lockTimerCheck" type="checkbox" onchange="toggleLockedTimer(this.checked)" class="accent-[#6a6056] w-4 h-4" />
+            </div>
+          </div>
+
+          <!-- Generated Visual Themes & Custom Uploads -->
+          <div class="space-y-2">
+            <label class="block text-xs font-semibold text-[#6e645a]">توليد الصور الفنية أو رفع صور خاصة:</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="regenerateAllArt(1)" class="py-2 px-3 rounded-lg bg-[#6a6056] text-white text-xs hover:bg-[#564d44] transition">
+                🎨 النمط الأصلي المطابق
+              </button>
+              <button onclick="regenerateAllArt(2)" class="py-2 px-3 rounded-lg bg-[#8c8175] text-white text-xs hover:bg-[#73695f] transition">
+                ✨ توليد إضاءة ملكية بديلة
+              </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 pt-1">
+              <label class="cursor-pointer py-2 px-2 rounded-lg bg-white/75 border border-[#ccc3b3] text-center text-[11px] hover:bg-white transition">
+                صورة الغلاف
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event, 'customCoverImg')" />
+              </label>
+              <label class="cursor-pointer py-2 px-2 rounded-lg bg-white/75 border border-[#ccc3b3] text-center text-[11px] hover:bg-white transition">
+                صورة الثريات
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event, 'customTopImg')" />
+              </label>
+              <label class="cursor-pointer py-2 px-2 rounded-lg bg-white/75 border border-[#ccc3b3] text-center text-[11px] hover:bg-white transition">
+                صورة الباقة
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomPhoto(event, 'customBottomImg')" />
+              </label>
+            </div>
+
+            <div class="pt-1">
+              <label class="cursor-pointer block w-full py-2 px-3 rounded-lg bg-white/75 border border-[#ccc3b3] text-center text-xs hover:bg-white transition">
+                🎵 رفع ملف صوتي / زفة خاصة (MP3)
+                <input type="file" accept="audio/*" class="hidden" onchange="uploadCustomAudio(event)" />
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden Audio Element for Custom Uploaded MP3 -->
+    <audio id="customAudioPlayer" src="Saad/oo.mp3" loop class="hidden"></audio>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: PROCEDURAL LUXURY PHOTO GENERATION, AUDIO & INTERACTIONS  -->
+  <!-- ===================================================================== -->
+  <script>
+    /* ---------------------------------------------------------------------
+       1. BESPOKE PROCEDURAL PHOTOGRAPHIC CANVAS ART GENERATORS
+          Creates exact high-detail vintage art matching Screenshots 1 & 2:
+          - Canvas 1: Soft-focus Sepia Lace Bridal Gown & Pointed Bridal Heel
+          - Canvas 2: Monochrome Grand Crystal Chandeliers & Bokeh Streaks
+          - Canvas 3: Monochrome White Rose Bridal Bouquet & Sheer Veil Drapery
+    --------------------------------------------------------------------- */
+
+    function renderBridalCoverArt(variant = 1) {
+      const canvas = document.getElementById('bridalCoverCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = 660;
+      const h = canvas.height = 1180;
+
+      // 1. Deep Warm Sepia-Taupe Studio Backdrop (Matches Screenshot 1)
+      const bgGrad = ctx.createRadialGradient(w * 0.42, h * 0.48, 40, w * 0.5, h * 0.5, h * 0.78);
+      if (variant === 1) {
+        bgGrad.addColorStop(0, '#968679');
+        bgGrad.addColorStop(0.45, '#685a4f');
+        bgGrad.addColorStop(0.8, '#463c35');
+        bgGrad.addColorStop(1, '#2f2823');
+      } else {
+        bgGrad.addColorStop(0, '#a39283');
+        bgGrad.addColorStop(0.5, '#736357');
+        bgGrad.addColorStop(1, '#362d27');
+      }
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Flowing Bridal Gown Drapery Folds (Left & Right Voluminous Lace Skirt)
+      ctx.save();
+      ctx.filter = 'blur(12px)';
+
+      // Left Luminous Lace Gown Panel
+      const leftGownGrad = ctx.createLinearGradient(0, h * 0.1, w * 0.52, h * 0.92);
+      leftGownGrad.addColorStop(0, 'rgba(155, 141, 130, 0.45)');
+      leftGownGrad.addColorStop(0.45, 'rgba(210, 198, 186, 0.72)');
+      leftGownGrad.addColorStop(0.78, 'rgba(238, 228, 218, 0.92)');
+      leftGownGrad.addColorStop(1, 'rgba(245, 238, 230, 0.95)');
+
+      ctx.fillStyle = leftGownGrad;
+      ctx.beginPath();
+      ctx.moveTo(-40, h * 0.05);
+      ctx.bezierCurveTo(w * 0.35, h * 0.15, w * 0.48, h * 0.42, w * 0.46, h * 0.72);
+      ctx.bezierCurveTo(w * 0.34, h * 0.82, w * 0.18, h * 0.92, -30, h * 0.97);
+      ctx.closePath();
+      ctx.fill();
+
+      // Right Draped Satin & Lace Fold catching warm keylight
+      const rightGownGrad = ctx.createLinearGradient(w * 0.45, h * 0.12, w * 0.95, h * 0.85);
+      rightGownGrad.addColorStop(0, 'rgba(72, 60, 52, 0.5)');
+      rightGownGrad.addColorStop(0.35, 'rgba(215, 203, 192, 0.78)');
+      rightGownGrad.addColorStop(0.7, 'rgba(242, 234, 225, 0.92)');
+      rightGownGrad.addColorStop(1, 'rgba(180, 166, 154, 0.65)');
+
+      ctx.fillStyle = rightGownGrad;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.42, h * 0.08);
+      ctx.bezierCurveTo(w * 0.68, h * 0.24, w * 0.96, h * 0.38, w * 0.94, h * 0.54);
+      ctx.bezierCurveTo(w * 0.88, h * 0.68, w * 0.92, h * 0.78, w * 0.76, h * 0.85);
+      ctx.bezierCurveTo(w * 0.64, h * 0.82, w * 0.58, h * 0.66, w * 0.48, h * 0.45);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // 3. Center Shadow Split & Bridal Leg/Pointed Pearl Heel Peeking Out at Bottom Center
+      ctx.save();
+      ctx.filter = 'blur(5px)';
+      // Ankle / Foot Warm Tone
+      const legGrad = ctx.createLinearGradient(w * 0.43, h * 0.68, w * 0.54, h * 0.94);
+      legGrad.addColorStop(0, '#7c6555');
+      legGrad.addColorStop(0.6, '#b89f8d');
+      legGrad.addColorStop(1, '#e6dcd2');
+      ctx.fillStyle = legGrad;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.43, h * 0.68);
+      ctx.quadraticCurveTo(w * 0.45, h * 0.83, w * 0.46, h * 0.92);
+      ctx.lineTo(w * 0.55, h * 0.93);
+      ctx.quadraticCurveTo(w * 0.51, h * 0.81, w * 0.49, h * 0.68);
+      ctx.closePath();
+      ctx.fill();
+
+      // Pointed Luxury Bridal Heel Tip at bottom center (Just like Screenshot 1)
+      ctx.filter = 'blur(2px)';
+      const shoeGrad = ctx.createLinearGradient(w * 0.44, h * 0.88, w * 0.57, h * 0.98);
+      shoeGrad.addColorStop(0, 'rgba(225, 214, 204, 0.85)');
+      shoeGrad.addColorStop(0.5, 'rgba(248, 244, 238, 0.95)');
+      shoeGrad.addColorStop(1, 'rgba(185, 172, 160, 0.9)');
+      ctx.fillStyle = shoeGrad;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.45, h * 0.90);
+      ctx.quadraticCurveTo(w * 0.51, h * 0.94, w * 0.57, h * 0.985);
+      ctx.quadraticCurveTo(w * 0.49, h * 0.99, w * 0.44, h * 0.93);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // 4. Intricate Scalloped Chantilly Floral Lace Appliqués Along Gown Edges
+      ctx.save();
+      ctx.filter = 'blur(1.6px)';
+      ctx.strokeStyle = 'rgba(250, 245, 238, 0.68)';
+      ctx.fillStyle = 'rgba(246, 240, 232, 0.42)';
+
+      // Left Lace Hemline Cascade (Bottom Left)
+      for (let i = 0; i < 28; i++) {
+        const lx = (i * 14) - 10;
+        const ly = h * 0.72 + Math.sin(i * 0.6) * 28 + (i < 12 ? (12 - i) * 12 : - (i - 12) * 8);
+        const r = 16 + (i % 3) * 8;
+        ctx.beginPath();
+        ctx.arc(lx, ly, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Tiny pearl/sequin highlights
+        ctx.beginPath();
+        ctx.arc(lx + 4, ly - 4, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.fill();
+        ctx.fillStyle = 'rgba(246, 240, 232, 0.42)';
+      }
+
+      // Right Lace Hemline Cascade (Mid-Right to Bottom-Right)
+      for (let i = 0; i < 26; i++) {
+        const rx = w * 0.64 + Math.sin(i * 0.35) * 95 + (i * 6);
+        const ry = h * 0.44 + i * 16;
+        const r = 14 + (i % 4) * 6;
+        ctx.beginPath();
+        ctx.arc(rx, ry, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 5. Dreamy Soft-Focus Lens Diffusion & Film Grain
+      ctx.save();
+      const softGlow = ctx.createRadialGradient(w * 0.5, h * 0.52, 50, w * 0.5, h * 0.52, h * 0.65);
+      softGlow.addColorStop(0, 'rgba(240, 230, 220, 0.14)');
+      softGlow.addColorStop(1, 'rgba(38, 30, 24, 0.38)');
+      ctx.fillStyle = softGlow;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+
+    function renderChandelierBannerArt(variant = 1) {
+      const canvas = document.getElementById('chandelierCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = 660;
+      const h = canvas.height = 380;
+
+      // 1. Monochrome Luxury Ballroom Ceiling Backdrop
+      const bgGrad = ctx.createLinearGradient(0, 0, w, h);
+      bgGrad.addColorStop(0, '#44413e');
+      bgGrad.addColorStop(0.45, '#595550');
+      bgGrad.addColorStop(1, '#363330');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Soft White Draped Ceiling Swags (Top Right)
+      ctx.save();
+      ctx.filter = 'blur(6px)';
+      ctx.fillStyle = 'rgba(220, 216, 210, 0.38)';
+      ctx.beginPath();
+      ctx.moveTo(w * 0.38, 0);
+      ctx.quadraticCurveTo(w * 0.68, h * 0.28, w, h * 0.12);
+      ctx.lineTo(w, 0);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(195, 190, 184, 0.28)';
+      ctx.beginPath();
+      ctx.moveTo(w * 0.25, 0);
+      ctx.quadraticCurveTo(w * 0.42, h * 0.45, w * 0.46, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // 3. Vertical Shimmering Bokeh Light Columns on Left (Exact match to Screenshot 2)
+      ctx.save();
+      const columns = [42, 65, 118, 152, 22];
+      columns.forEach((cx, idx) => {
+        for (let y = 10; y < h - 20; y += 9) {
+          const alpha = (0.15 + Math.sin(y * 0.08 + idx) * 0.12) * (y < h * 0.75 ? 1 : 0.4);
+          const width = 10 + (idx % 3) * 6;
+          ctx.fillStyle = `rgba(245, 242, 236, ${Math.max(0.04, alpha)})`;
+          ctx.fillRect(cx - width / 2, y, width, 4.5);
+        }
+      });
+      // Bright bokeh orbs on left
+      const orbs = [
+        { x: 164, y: 28, r: 10, a: 0.85 },
+        { x: 32, y: 228, r: 10, a: 0.82 },
+        { x: 145, y: 95, r: 6, a: 0.45 }
+      ];
+      orbs.forEach(o => {
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 253, 248, ${o.a})`;
+        ctx.fill();
+      });
+      ctx.restore();
+
+      // 4. Helper Function to Draw Detailed Crystal Chandeliers
+      function drawCrystalChandelier(cx, cy, scale, opacity) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(scale, scale);
+        ctx.globalAlpha = opacity;
+
+        // Top chain
+        ctx.strokeStyle = 'rgba(230,226,220,0.6)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, -120);
+        ctx.lineTo(0, -55);
+        ctx.stroke();
+
+        // Tiers of crystal beads & candles
+        const tiers = [
+          { y: -45, w: 32, h: 18, drops: 9 },
+          { y: -22, w: 62, h: 24, drops: 15 },
+          { y: 5,  w: 98, h: 32, drops: 22 },
+          { y: 34, w: 76, h: 28, drops: 18 },
+          { y: 58, w: 42, h: 22, drops: 11 }
+        ];
+
+        // Candle flames along middle tier
+        for (let c = -4; c <= 4; c++) {
+          const fx = c * 21;
+          const fy = -8 - Math.abs(c) * 1.5;
+          // Candle stem
+          ctx.fillStyle = 'rgba(240,238,232,0.75)';
+          ctx.fillRect(fx - 1.5, fy, 3, 12);
+          // Glowing flame
+          const fGrad = ctx.createRadialGradient(fx, fy - 4, 1, fx, fy - 4, 9);
+          fGrad.addColorStop(0, 'rgba(255,255,255,0.98)');
+          fGrad.addColorStop(0.5, 'rgba(240,236,228,0.55)');
+          fGrad.addColorStop(1, 'rgba(240,236,228,0)');
+          ctx.fillStyle = fGrad;
+          ctx.beginPath();
+          ctx.arc(fx, fy - 4, 9, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Sparkling Crystal Prisms
+        tiers.forEach(t => {
+          for (let i = 0; i <= t.drops; i++) {
+            const norm = (i / t.drops) * 2 - 1; // -1 to 1
+            const px = norm * t.w;
+            const curveY = t.y + Math.cos(norm * Math.PI * 0.5) * (t.h * 0.65);
+
+            // Crystal strand
+            for (let b = 0; b < 4; b++) {
+              const by = curveY + b * 5.5;
+              const br = (b === 3) ? 3.2 : 2.1;
+              ctx.fillStyle = (i + b) % 2 === 0 ? 'rgba(255,255,255,0.9)' : 'rgba(205,200,194,0.75)';
+              ctx.beginPath();
+              ctx.arc(px, by, br, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        });
+
+        ctx.restore();
+      }
+
+      // Draw Multiple Chandeliers Matching Screenshot 2 Positions
+      drawCrystalChandelier(w * 0.36, h * 0.62, 0.56, 0.72); // Mid-left background chandelier
+      drawCrystalChandelier(w * 0.80, h * 0.68, 0.48, 0.62); // Lower-right background chandelier
+      drawCrystalChandelier(w * 0.82, h * 0.25, 0.45, 0.65); // Top-right chandelier
+      drawCrystalChandelier(w * 0.63, h * 0.38, 0.95, 0.95); // Center-right Hero Chandelier
+      drawCrystalChandelier(w * 0.94, h * 0.48, 0.88, 0.92); // Far-right Grand Chandelier
+    }
+
+    function renderBouquetBottomArt(variant = 1) {
+      const canvas = document.getElementById('bouquetCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = 660;
+      const h = canvas.height = 280;
+
+      // 1. Dark Monochrome Charcoal Backdrop
+      const bgGrad = ctx.createLinearGradient(0, 0, w, h);
+      bgGrad.addColorStop(0, '#5a5652');
+      bgGrad.addColorStop(0.5, '#3d3a37');
+      bgGrad.addColorStop(1, '#2d2b28');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Flowing Sheer Bridal Tulle & Drapery Folds (Left & Center-Right)
+      ctx.save();
+      ctx.filter = 'blur(3px)';
+      const folds = [
+        { x1: 0, x2: w * 0.18, a1: 0.75, a2: 0.35 },
+        { x1: w * 0.14, x2: w * 0.32, a1: 0.55, a2: 0.18 },
+        { x1: w * 0.48, x2: w * 0.69, a1: 0.42, a2: 0.15 },
+        { x1: w * 0.87, x2: w, a1: 0.35, a2: 0.12 }
+      ];
+      folds.forEach(f => {
+        const fg = ctx.createLinearGradient(f.x1, 0, f.x2, h);
+        fg.addColorStop(0, `rgba(225, 222, 216, ${f.a1})`);
+        fg.addColorStop(0.6, `rgba(180, 176, 170, ${f.a2})`);
+        fg.addColorStop(1, 'rgba(90, 86, 82, 0.1)');
+        ctx.fillStyle = fg;
+        ctx.beginPath();
+        ctx.moveTo(f.x1, 0);
+        ctx.lineTo(f.x2, 0);
+        ctx.quadraticCurveTo(f.x2 + 18, h * 0.5, f.x2 - 8, h);
+        ctx.lineTo(f.x1 - 10, h);
+        ctx.closePath();
+        ctx.fill();
+      });
+      ctx.restore();
+
+      // 3. White Rose Bridal Bouquet in Bottom Center (Exact Match to Screenshot 2)
+      function drawMonochromeRose(rx, ry, radius) {
+        ctx.save();
+        ctx.translate(rx, ry);
+
+        // Outer soft petals
+        const outerGrad = ctx.createRadialGradient(0, -radius * 0.15, radius * 0.1, 0, 0, radius);
+        outerGrad.addColorStop(0, '#f4f2ee');
+        outerGrad.addColorStop(0.55, '#dcd8d0');
+        outerGrad.addColorStop(0.85, '#b5b0a8');
+        outerGrad.addColorStop(1, 'rgba(130, 125, 118, 0)');
+        ctx.fillStyle = outerGrad;
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Layered sculptural rose petals
+        for (let p = 0; p < 7; p++) {
+          const angle = (p / 7) * Math.PI * 2;
+          const dist = radius * 0.36;
+          const px = Math.cos(angle) * dist;
+          const py = Math.sin(angle) * dist;
+          ctx.fillStyle = p % 2 === 0 ? 'rgba(246, 244, 240, 0.85)' : 'rgba(210, 206, 198, 0.75)';
+          ctx.beginPath();
+          ctx.ellipse(px, py, radius * 0.42, radius * 0.28, angle + 0.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Rose spiral center
+        ctx.strokeStyle = 'rgba(145, 140, 132, 0.65)';
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 0.22, 0.2, Math.PI * 1.65);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      // Cluster of lush white roses at bottom center
+      const roses = [
+        { x: w * 0.43, y: h * 0.54, r: 44 },
+        { x: w * 0.52, y: h * 0.48, r: 42 },
+        { x: w * 0.47, y: h * 0.72, r: 48 },
+        { x: w * 0.57, y: h * 0.76, r: 44 },
+        { x: w * 0.39, y: h * 0.82, r: 38 },
+        { x: w * 0.52, y: h * 0.92, r: 46 }
+      ];
+      roses.forEach(r => drawMonochromeRose(r.x, r.y, r.r));
+    }
+
+    function regenerateAllArt(variant = 1) {
+      // Hide any custom uploaded images so generated art shows
+      ['customCoverImg', 'customTopImg', 'customBottomImg'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      renderBridalCoverArt(variant);
+      renderChandelierBannerArt(variant);
+      renderBouquetBottomArt(variant);
+    }
+
+    /* ---------------------------------------------------------------------
+       2. ROMANTIC WEDDING MUSIC SYNTHESIZER (WEB AUDIO API) + MP3 SUPPORT
+          Plays automatically on load and immediately on first touch/click
+          with continuous vinyl spinning.
+    --------------------------------------------------------------------- */
+    let audioCtx = null;
+    let isPlaying = false;
+    let melodyInterval = null;
+    let useCustomMp3 = true;
+
+    // Romantic classical chord progression in F Major / D Minor
+    const weddingNotes = [
+      349.23, 440.00, 523.25, 698.46, // F4, A4, C5, F5
+      329.63, 392.00, 523.25, 659.25, // E4, G4, C5, E5
+      293.66, 349.23, 440.00, 587.33, // D4, F4, A4, D5
+      261.63, 349.23, 440.00, 523.25, // C4, F4, A4, C5
+      233.08, 293.66, 349.23, 466.16, // Bb3, D4, F4, Bb4
+      261.63, 329.63, 392.00, 523.25  // C4, E4, G4, C5
+    ];
+    let noteIndex = 0;
+
+    function playWarmPianoNote(freq) {
+      if (!audioCtx || !isPlaying || audioCtx.state !== 'running') return;
+      const now = audioCtx.currentTime;
+
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc1.type = 'sine';
+      osc2.type = 'triangle';
+      osc1.frequency.setValueAtTime(freq, now);
+      osc2.frequency.setValueAtTime(freq * 2, now); // Delicate harmonic overtone
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.095, now + 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.0008, now + 2.4);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 2.5);
+      osc2.stop(now + 2.5);
+    }
+
+    function startAudio() {
+      const customAudio = document.getElementById('customAudioPlayer');
+      if (useCustomMp3 && customAudio.src) {
+        customAudio.play().catch(() => {});
+        isPlaying = true;
+        updateAudioUI();
+        return;
+      }
+
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContextClass();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {
+        // Ignore initial autoplay block until first interaction
+      }
+
+      isPlaying = true;
+      updateAudioUI();
+
+      if (!melodyInterval) {
+        playWarmPianoNote(weddingNotes[noteIndex % weddingNotes.length]);
+        noteIndex++;
+
+        melodyInterval = setInterval(() => {
+          if (!isPlaying) return;
+          if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(() => {});
+          }
+          playWarmPianoNote(weddingNotes[noteIndex % weddingNotes.length]);
+          noteIndex++;
+        }, 620);
+      }
+    }
+
+    function pauseAudio() {
+      isPlaying = false;
+      if (melodyInterval) {
+        clearInterval(melodyInterval);
+        melodyInterval = null;
+      }
+      const customAudio = document.getElementById('customAudioPlayer');
+      if (customAudio) customAudio.pause();
+      updateAudioUI();
+    }
+
+    function toggleAudioPlayback() {
+      if (isPlaying) {
+        pauseAudio();
+      } else {
+        startAudio();
+      }
+    }
+
+    function updateAudioUI() {
+      const vinyl = document.getElementById('vinylRecord');
+      if (!vinyl) return;
+      if (isPlaying) {
+        vinyl.classList.add('playing');
+      } else {
+        vinyl.classList.remove('playing');
+      }
+    }
+
+    // Unlock and ensure audio is playing on the very first touch or click anywhere
+    function unlockAudioOnFirstInteraction() {
+      if (!isPlaying) {
+        startAudio();
+      } else if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().then(() => {
+          playWarmPianoNote(weddingNotes[noteIndex % weddingNotes.length]);
+          noteIndex++;
+        }).catch(() => {});
+      }
+      const customAudio = document.getElementById('customAudioPlayer');
+      if (useCustomMp3 && customAudio.paused) {
+        customAudio.play().catch(() => {});
+      }
+    }
+
+    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+      document.addEventListener(evt, unlockAudioOnFirstInteraction, { passive: true });
+    });
+
+    /* ---------------------------------------------------------------------
+       3. ENVELOPE OPENING & CLOSING TRANSITIONS
+    --------------------------------------------------------------------- */
+    function openInvitation() {
+      // Immediately start or resume wedding music when opening the envelope
+      startAudio();
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+
+      const envBtn = document.getElementById('closedEnvelopeBtn');
+      const screenCover = document.getElementById('screenCover');
+      const screenInside = document.getElementById('screenInside');
+
+      envBtn.classList.add('opening');
+
+      setTimeout(() => {
+        screenCover.classList.add('opened');
+        screenInside.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 420);
+    }
+
+    function closeInvitation() {
+      const envBtn = document.getElementById('closedEnvelopeBtn');
+      const screenCover = document.getElementById('screenCover');
+      const screenInside = document.getElementById('screenInside');
+
+      envBtn.classList.remove('opening');
+      screenCover.classList.remove('opened');
+      screenInside.classList.remove('visible');
+    }
+
+    /* ---------------------------------------------------------------------
+       4. LIVE COUNTDOWN TIMER TO NOVEMBER 22, 2026 (22/11/2026)
+    --------------------------------------------------------------------- */
+    let lockToScreenshotNumbers = false;
+    const weddingTargetTime = new Date('2026-11-22T20:00:00').getTime();
+
+    function updateCountdownDisplay() {
+      if (lockToScreenshotNumbers) {
+        document.getElementById('cdDays').textContent = '10';
+        document.getElementById('cdHours').textContent = '14';
+        document.getElementById('cdMinutes').textContent = '51';
+        document.getElementById('cdSeconds').textContent = '34';
+        return;
+      }
+
+      const now = Date.now();
+      let diffSeconds = Math.max(0, Math.floor((weddingTargetTime - now) / 1000));
+
+      const days = Math.floor(diffSeconds / 86400);
+      diffSeconds %= 86400;
+      const hours = Math.floor(diffSeconds / 3600);
+      diffSeconds %= 3600;
+      const minutes = Math.floor(diffSeconds / 60);
+      const seconds = diffSeconds % 60;
+
+      document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+      document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cdMinutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cdSeconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    function toggleLockedTimer(checked) {
+      lockToScreenshotNumbers = checked;
+      updateCountdownDisplay();
+    }
+
+    /* ---------------------------------------------------------------------
+       5. MODALS & LIVE CUSTOMIZATION HANDLERS
+    --------------------------------------------------------------------- */
+    function openLocationModal() {
+      const modal = document.getElementById('locationModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLocationModal() {
+      const modal = document.getElementById('locationModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function toggleStudioModal(show) {
+      const modal = document.getElementById('studioModal');
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function applyCustomizations() {
+      const namesEn = document.getElementById('inputNamesEn').value.trim() || 'Mayada & Saad';
+      const namesAr = document.getElementById('inputNamesAr').value.trim() || 'ميادة & سعد';
+      const dateAr = document.getElementById('inputDateAr').value.trim() || 'الثاني والعشرون من شهر نوفمبر لعام 2026م';
+      const venue = document.getElementById('inputVenue').value.trim() || 'قاعة مذهلة';
+
+      document.getElementById('coverNamesEn').textContent = namesEn;
+      document.getElementById('insideNamesEn').textContent = namesEn;
+      document.getElementById('envNamesAr').textContent = namesAr;
+      document.getElementById('envDateAr').textContent = dateAr;
+      document.getElementById('venueNameText').textContent = 'موقع ' + venue;
+      document.getElementById('modalVenueTitle').textContent = venue;
+    }
+
+    function uploadCustomPhoto(event, targetImgId) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imgEl = document.getElementById(targetImgId);
+        imgEl.src = e.target.result;
+        imgEl.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadCustomAudio(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      const customAudio = document.getElementById('customAudioPlayer');
+      customAudio.src = url;
+      useCustomMp3 = true;
+      if (melodyInterval) {
+        clearInterval(melodyInterval);
+        melodyInterval = null;
+      }
+      startAudio();
+    }
+
+    // expose functions globally to ensure inline onclick handlers always find them
+    window.openInvitation = openInvitation;
+    window.closeInvitation = closeInvitation;
+    window.toggleAudioPlayback = toggleAudioPlayback;
+    window.openLocationModal = openLocationModal;
+    window.closeLocationModal = closeLocationModal;
+    window.toggleStudioModal = toggleStudioModal;
+    window.applyCustomizations = applyCustomizations;
+    window.toggleLockedTimer = toggleLockedTimer;
+    window.regenerateAllArt = regenerateAllArt;
+    window.uploadCustomPhoto = uploadCustomPhoto;
+    window.uploadCustomAudio = uploadCustomAudio;
+
+    /* ---------------------------------------------------------------------
+       6. INITIALIZE ON LOAD
+    --------------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCountdownDisplay();
+      setInterval(updateCountdownDisplay, 1000);
+      startAudio();
+    });
+  </script>
+</body>
+</html>
